@@ -1,64 +1,51 @@
 <template>
     <div>
-        <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo" default-active="2"
-            text-color="#fff" @open="handleOpen" @close="handleClose">
-
-            <el-sub-menu index="1">
-                <template #title>
-                    <el-icon>
-                        <location />
-                    </el-icon>
-                </template>
-                <el-menu-item index="1-1">
-                    <el-icon>
-                        <location />
-                    </el-icon>
+        <el-menu :data="sidearr" active-text-color="#ffd04b" background-color="#d9bc9a" class="el-menu-vertical-demo"
+            text-color="#fff" router>
+            <template v-for="(item, index) in sidearr" :key="index">
+                <el-menu-item :index="item.link">
+                    <template #title>
+                        <el-icon>
+                            <component :is="item.icon" />
+                        </el-icon>
+                        <span style="color: #a6785e;font-weight: bold;">&nbsp;❀</span>
+                    </template>
+                    <!-- <el-menu-item index="1-1">
+                        <el-icon>
+                            <location />
+                        </el-icon>
+                    </el-menu-item>
+                    <el-menu-item index="1-2">
+                        <el-icon>
+                            <location />
+                        </el-icon>
+                    </el-menu-item> -->
                 </el-menu-item>
-                <el-menu-item index="1-2">
-                    <el-icon>
-                        <location />
-                    </el-icon>
-                </el-menu-item>
-
-            </el-sub-menu>
-
-            <el-sub-menu index="2">
-                <template #title>
-                    <el-icon>
-                        <Menu />
-                    </el-icon>
-                </template>
-            </el-sub-menu>
-
-            <el-sub-menu index="3">
-                <template #title>
-                    <el-icon>
-                        <document />
-                    </el-icon>
-                </template>
-            </el-sub-menu>
-
-            <el-sub-menu index="4">
-                <template #title>
-                    <el-icon>
-                        <setting />
-                    </el-icon>
-                </template>
-            </el-sub-menu>
+            </template>
 
         </el-menu>
     </div>
 </template>
 
-<script>
-export default {
+<script setup>
+import {ref, onMounted} from 'vue';
 
-}
+const sidearr = ref([]);
+
+onMounted(async () => {
+    const service = await import('../axios');
+    const res = await service.default.get('/api/sidebar/menu');
+
+    sidearr.value = res.data.data;
+
+})
+
 </script>
 
 <style lang="scss" scoped>
 .el-menu-vertical-demo {
     padding-top: 6vh;
     height: 100vh;
+    border: none;
 }
 </style>

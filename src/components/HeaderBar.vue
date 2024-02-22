@@ -1,10 +1,10 @@
 <template>
     <div>
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" background-color="#545c64"
-            text-color="#fff" active-text-color="#ffd04b" @select="handleSelect">
+        <el-menu  class="el-menu-demo" mode="horizontal" background-color="#725047" text-color="#fff" router
+            active-text-color="#ffd04b">
 
-            <el-menu-item index="0">
-                <img class="lipologo" src="../assets/改图鸭.png" alt="Lipo logo" />
+            <el-menu-item index="/">
+                <img class="lipologo" src="../assets/lipologo.png" alt="Lipo logo" />
             </el-menu-item>
 
             <div class="flex-grow" />
@@ -13,7 +13,7 @@
                 <template #title>Workspace</template>
                 <el-menu-item index="2-1">item one</el-menu-item>
                 <el-menu-item index="2-2">item two</el-menu-item>
-                <el-menu-item index="2-3">item three</el-menu-item>
+                <el-menu-item index="/about">About</el-menu-item>
                 <el-sub-menu index="2-4">
                     <template #title>item four</template>
                     <el-menu-item index="2-4-1">item one</el-menu-item>
@@ -37,6 +37,7 @@ export default {
     margin: 0;
     height: 70px;
 }
+
 .lipologo {
     width: 100px;
     border-radius: 10px;

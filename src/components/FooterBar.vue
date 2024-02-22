@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="footerziji">
-            这里是footer
+            Lipo制作
         </div>
     </div>
 </template>
@@ -18,13 +18,13 @@ export default {
 
 <style lang="scss" scoped>
 .footerziji {
-    background-color: #545c64;
+    background-color: #725047;
     color: #FFF;
     text-align: center;
     height: 60px;
     line-height: 60px;
     box-sizing: border-box;
-    border-left: 1px solid #ffd04b;
+    border-left: 1px solid #725047;
 }
 
 </style>

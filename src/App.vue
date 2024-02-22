@@ -16,27 +16,29 @@
         </Transition>
 
         <el-container>
-            <el-header class="header" :style="{ marginLeft: isCollapsed ? '88px' : '260px' }">
+          <el-header class="header" :style="{ marginLeft: isCollapsed ? '88px' : '260px' }">
 
-              <el-button class="shouqi" color="#ffd04b" circle size="large" @click="isCollapsed = true"
-                v-if="!isCollapsed">
-                <el-icon color="#333333" size="18px">
-                  <DArrowLeft />
-                </el-icon>
-              </el-button>
-              <el-button class="dakai" color="#ffd04b" circle size="large" @click="isCollapsed = false"
-                v-if="isCollapsed">
-                <el-icon color="#333333" size="18px">
-                  <DArrowRight />
-                </el-icon>
-              </el-button>
+            <el-button class="shouqi" color="#ffd04b" circle size="large" @click="isCollapsed = true" v-if="!isCollapsed">
+              <el-icon color="#725047" size="18px">
+                <DArrowLeft />
+              </el-icon>
+            </el-button>
+            <el-button class="dakai" color="#ffd04b" circle size="large" @click="isCollapsed = false" v-if="isCollapsed">
+              <el-icon color="#725047" size="18px">
+                <DArrowRight />
+              </el-icon>
+            </el-button>
 
-              <HeaderBar></HeaderBar>
-            </el-header>
+            <HeaderBar></HeaderBar>
+          </el-header>
 
 
           <el-main class="zhongjian" :style="{ marginLeft: isCollapsed ? '88px' : '260px' }">
-            <router-view></router-view>
+            <router-view v-slot="{ Component }">
+              <Transition name="slide-fade">
+                <component :is="Component" />
+              </Transition>
+            </router-view>
           </el-main>
 
           <el-footer class="footer" :style="{ paddingLeft: isCollapsed ? '88px' : '260px' }">
@@ -66,6 +68,7 @@ export default {
   data() {
     return {
       isCollapsed: false,
+      transitionName: 'fade',
     }
   },
   methods: {
@@ -131,11 +134,23 @@ export default {
 
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.25s ease;
+  transition: all 0.5s ease;
 }
 
 .v-enter-from,
 .v-leave-to {
+  transform: translateX(0px);
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(20px);
   opacity: 0;
 }
 
@@ -144,8 +159,9 @@ export default {
   width: 100vw;
   padding: 0;
   box-sizing: border-box;
-  border-left: 1px solid #ffd04b;
-  transition: 0.5s ease;
+  border-left: 1px solid #725047;
+  height: 70px;
+  transition: all 0.5s;
 }
 
 .footer {
