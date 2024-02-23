@@ -139,8 +139,8 @@ export default {
 
 .v-enter-from,
 .v-leave-to {
-  transform: translateX(0px);
-  opacity: 0;
+  transform: translateX(-172px);
+  opacity: 1;
 }
 
 .slide-fade-enter-active {
