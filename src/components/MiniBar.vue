@@ -44,7 +44,7 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .el-menu-vertical-demo {
-    padding-top: 6vh;
+    padding-top: 10vh;
     height: 100vh;
     border: none;
 }

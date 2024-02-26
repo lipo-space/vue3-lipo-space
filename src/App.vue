@@ -10,30 +10,40 @@
         </Transition>
 
         <Transition>
-          <el-aside class="cebianmini" v-if="isCollapsed">
+          <el-aside class="cebianmini" v-if=" isCollapsed && !shoujima ">
             <MiniBar></MiniBar>
           </el-aside>
         </Transition>
 
         <el-container>
-          <el-header class="header" :style="{ marginLeft: isCollapsed ? '88px' : '260px' }">
-
-            <el-button class="shouqi" color="#ffd04b" circle size="large" @click="isCollapsed = true" v-if="!isCollapsed">
-              <el-icon color="#725047" size="18px">
-                <DArrowLeft />
-              </el-icon>
-            </el-button>
-            <el-button class="dakai" color="#ffd04b" circle size="large" @click="isCollapsed = false" v-if="isCollapsed">
-              <el-icon color="#725047" size="18px">
-                <DArrowRight />
-              </el-icon>
-            </el-button>
+          <el-header class="header">
+            <Transition>
+              <el-button class="shouqi" color="#ffd04b" circle size="large" @click="isCollapsed = true" v-if="!isCollapsed">
+                <el-icon color="#725047" size="18px">
+                  <DArrowLeft />
+                </el-icon>
+              </el-button>
+              </Transition>
+              <Transition>
+                <el-button class="dakai" color="#ffd04b" circle size="large" @click="isCollapsed = false" v-if="isCollapsed && !shoujima">
+                  <el-icon color="#725047" size="18px">
+                    <DArrowRight />
+                  </el-icon>
+                </el-button>
+              </Transition>
+              <Transition>
+                <el-button class="shoujidakai" color="#ffd04b" circle size="large" @click="isCollapsed = false" v-if="shoujima && isCollapsed">
+                  <el-icon color="#725047" size="18px">
+                    <DArrowRight />
+                  </el-icon>
+                </el-button>
+              </Transition>
 
             <HeaderBar></HeaderBar>
           </el-header>
 
 
-          <el-main class="zhongjian" :style="{ marginLeft: isCollapsed ? '88px' : '260px' }">
+          <el-main class="zhongjian" :style="{ marginLeft: isCollapsed  ? '98px' : '270px' }" v-if="!shoujima">
             <router-view v-slot="{ Component }">
               <Transition name="slide-fade">
                 <component :is="Component" />
@@ -41,7 +51,15 @@
             </router-view>
           </el-main>
 
-          <el-footer class="footer" :style="{ paddingLeft: isCollapsed ? '88px' : '260px' }">
+          <el-main class="zhongjian" style="margin-left: 0;"  v-if="shoujima">
+            <router-view v-slot="{ Component }">
+              <Transition name="slide-fade">
+                <component :is="Component" />
+              </Transition>
+            </router-view>
+          </el-main>
+
+          <el-footer class="footer" >
             <FooterBar></FooterBar>
           </el-footer>
 
@@ -69,6 +87,8 @@ export default {
     return {
       isCollapsed: false,
       transitionName: 'fade',
+      shoujima: false,
+      neirongxianshi: true,
     }
   },
   methods: {
@@ -77,6 +97,11 @@ export default {
         this.isCollapsed = true;
       } else if (window.innerWidth >= 1000) {
         this.isCollapsed = false;
+      }
+      if (window.innerWidth < 768) {
+        this.shoujima = true;
+      } else {
+        this.shoujima = false;
       }
     },
   },
@@ -109,26 +134,37 @@ export default {
   min-width: 200px;
   max-width: 260px;
   padding: 0;
+
 }
+
 
 .cebianmini {
   position: fixed;
   top: 0;
   left: 0;
   width: 88px;
+
 }
 
 .shouqi {
   position: absolute;
-  top: 10px;
-  left: -20px;
+  top: 70px;
+  left: 240px;
   z-index: 9999;
+
 }
 
 .dakai {
   position: absolute;
-  top: 10px;
-  left: -20px;
+  top: 70px;
+  left: 68px;
+  z-index: 9999;
+}
+
+.shoujidakai {
+  position: absolute;
+  top: 15px;
+  left: 0px;
   z-index: 9999;
 }
 
@@ -140,7 +176,7 @@ export default {
 .v-enter-from,
 .v-leave-to {
   transform: translateX(-172px);
-  opacity: 1;
+  opacity: 0;
 }
 
 .slide-fade-enter-active {
@@ -158,11 +194,18 @@ export default {
   position: fixed;
   width: 100vw;
   padding: 0;
-  box-sizing: border-box;
-  border-left: 1px solid #725047;
+  /* box-sizing: border-box; */
+  /* border-left: 1px solid #725047; */
   height: 70px;
-  transition: all 0.5s;
+  /* transition: all 0.5s; */
+  /* transition: transform 0.5s; */
 }
+/* .cebianmini ~ .header {
+  margin-left: 88px;
+}
+.cebian ~ .header {
+  margin-left: 260px;
+} */
 
 .footer {
   position: fixed;

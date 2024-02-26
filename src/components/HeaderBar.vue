@@ -8,8 +8,8 @@
             </el-menu-item>
 
             <div class="flex-grow" />
-            <el-menu-item index="1">Processing Center</el-menu-item>
-            <el-sub-menu index="2">
+            <el-menu-item index="1" class="youzi">Processing Center</el-menu-item>
+            <el-sub-menu index="2"  class="youzi">
                 <template #title>Workspace</template>
                 <el-menu-item index="2-1">item one</el-menu-item>
                 <el-menu-item index="2-2">item two</el-menu-item>
@@ -36,6 +36,7 @@ export default {
     padding: 0 30px;
     margin: 0;
     height: 70px;
+    border: none;
 }
 
 .lipologo {
@@ -43,4 +44,7 @@ export default {
     border-radius: 10px;
     border: 1px solid #00000091;
 }
+// .youzi {
+//     // padding-left: 80px;
+// }
 </style>
